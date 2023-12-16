@@ -1,0 +1,47 @@
+{
+	"elapsedTimeMillis": 1248,
+	"totalElements": 3204,
+	"numberOfElements": 3204,
+	"totalPages": 1,
+	"firstPage": true,
+	"lastPage": true,
+	"size": 3204,
+	"number": 0,
+	"rootDataElementType": "BundleNamings",
+	"unAuthorizedRootDataElements": [],
+	"contentStatus": "SUCCESS",
+	"uri": "",
+	"content": [
+		{
+			"p_id": "A1234"
+			"b_id": "",
+			"b_type": "",
+			"b_mode": "",
+			"b_namings": [
+				{
+					"language_code": "en",
+					"date_from": 20120808150906.000000000000000000,
+					"date_to": 999999999999999.000000000000000000,
+					"name": "",
+					"remark": ""
+				}
+			],
+			"m_usages": []
+		},
+		{
+			"p_id": "A2345"
+			"b_id": "",
+			"b_type": "",
+			"b_mode": "",
+			"b_namings": [
+				{
+					"language_code": "en",
+					"date_from": 20120808150906.000000000000000000,
+					"date_to": 999999999999999.000000000000000000,
+					"name": "",
+					"remark": ""
+				}
+			],
+			"m_usages": []
+		}]
+}
