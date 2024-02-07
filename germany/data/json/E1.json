@@ -1,0 +1,65 @@
+{
+    "data": [
+        {
+            "data": {
+                "tid": "512521",
+                "baseVersion": "1689586718219_219000000",
+                "responsibleSystem": "",
+                "releaseDate": "2023-07-17T11:38:32Z",
+                "priority": 100,
+                "originalF": "",
+                "softwareVersion": {
+                    "itemNumber": "A1234",
+                    "itemNumberCR": "relevant",
+                    "itemNumberD": "",
+                    "versionNumber": "232600",
+                    "zgs": "1",
+                    "statusLevel": "released",
+                    "accessStatus": "released",
+                    "processControl": "CLASSIC"
+                },
+                "softwareType": "code",
+                "containerFiles": [
+                    {
+                        "filename": "abc.ss",
+                        "size": 24410896
+                    }
+                ],
+                "ecuName": [
+                    "cp3"
+                ],
+                "dId": "",
+                "securityClass": "CCCv2",
+                "testSignatureAvailable": false,
+                "productiveSignatureAvailable": true,
+                "sH_Available": "available",
+                "deltaCapable": false,
+                "owner": "user1",
+                "flashMethod": "option1",
+                "flashJobName": "blabla",
+                "odxFFile": {
+                    "filename": "cp3.odx-f",
+                    "size": 8252
+                },
+                "supplier": "CAS",
+                "revision": "00.00.01",
+                "k": "",
+                "fwDownloadAftersalesStatus": "notRelevant"
+            },
+            "links": [
+                {
+                    "resource": "link",
+                    "href": "link"
+                },
+                {
+                    "resource": "link2",
+                    "href": "link2"
+                }
+            ],
+            "actions": [
+                "requestFT",
+                "viewSFile"
+            ]
+        }
+    ]
+}
