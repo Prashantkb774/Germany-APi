@@ -20,7 +20,7 @@ def map_json():
     with open(f'{path}/relation/rel.json', 'r') as f:
         relations = json.loads(f.read()).get('relation')
 
-    findings = []
+    findings = {}
     for cfile in os.listdir(f'{path}/json'):
         print(f'Parsing {cfile}')
         with open(f'{path}/json/{cfile}', 'r') as f:
@@ -38,14 +38,16 @@ def parse_json(data, relations, findings):
     if isinstance(data, dict):
         for key, value in data.items():
             if key in relations:
-                findings.append(data)
+                if value in findings:
+                    findings[value].update(data)
+                else:
+                    findings[value] = data
             elif value and isinstance(value, (list, dict)):
                 parse_json(value, relations, findings)
     elif isinstance(data, list):
         for li in data:
             if li:
                 parse_json(li, relations, findings)
-    return None
 
 
 @app.route('/status')

@@ -1,0 +1,98 @@
+{
+    "A1234": {
+        "p_id": "A1234",
+        "b_id": "",
+        "b_type": "",
+        "b_mode": "",
+        "b_namings": [
+            {
+                "language_code": "en",
+                "date_from": 20120808150906.0,
+                "date_to": 999999999999999.0,
+                "name": "",
+                "remark": ""
+            }
+        ],
+        "m_usages": [],
+        "productGroupIndicator": "P",
+        "kFrom": "",
+        "kTo": "",
+        "controlCodeFrom": "",
+        "controlCodeTo": "",
+        "leadProductDoc": "",
+        "controlRule": "",
+        "m_G_Id": "Z",
+        "quantity": 1.0,
+        "constructionGgroup": "",
+        "structureLevel": "01",
+        "maturityStage": "",
+        "plants": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "a_Indicator": "",
+        "v_Flag": "",
+        "lawDeprecated": "",
+        "shiftK": "",
+        "sparePIndicator": "E",
+        "mId": "B123",
+        "bodyType": "",
+        "sparePCounter": "",
+        "positionId": "0120",
+        "long": null,
+        "itemNumber": "A1234",
+        "itemNumberCR": "relevant",
+        "itemNumberD": "",
+        "versionNumber": "232600",
+        "zgs": "1",
+        "statusLevel": "released",
+        "accessStatus": "released",
+        "processControl": "CLASSIC"
+    },
+    "A2345": {
+        "p_id": "A2345",
+        "b_id": "",
+        "b_type": "",
+        "b_mode": "",
+        "b_namings": [
+            {
+                "language_code": "en",
+                "date_from": 20120808150906.0,
+                "date_to": 999999999999999.0,
+                "name": "",
+                "remark": ""
+            }
+        ],
+        "m_usages": [],
+        "productGroupIndicator": "P",
+        "kFrom": "",
+        "kTo": "",
+        "controlCodeFrom": "",
+        "controlCodeTo": "",
+        "leadProductDoc": "",
+        "controlRule": "",
+        "m_G_Id": "Z",
+        "quantity": 1.0,
+        "constructionGgroup": "",
+        "structureLevel": "01",
+        "maturityStage": "",
+        "plants": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "a_Indicator": "",
+        "v_Flag": "",
+        "lawDeprecated": "",
+        "shiftK": "",
+        "sparePIndicator": "E",
+        "mId": "A123",
+        "bodyType": "",
+        "sparePCounter": "",
+        "positionId": "0121",
+        "long": null
+    }
+}
