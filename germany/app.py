@@ -1,6 +1,7 @@
 import os
 import json
 import secrets
+import uuid
 
 import flask
 
@@ -16,7 +17,6 @@ app.config['SECRET_KEY'] = secret_key
 @app.route('/map')
 def map_json():
     path = f'{os.getcwd()}/germany/data'
-
     with open(f'{path}/relation/rel.json', 'r') as f:
         relations = json.loads(f.read()).get('relation')
 
@@ -27,7 +27,10 @@ def map_json():
             data = json.loads(f.read())
         parse_json(data, relations, findings)
 
-    print(json.dumps(findings, indent=4))
+    if findings:
+        print('Wrote the findings to the file.')
+        with open(f'{path}/output/{uuid.uuid4()}.json', 'w') as f:
+            f.write(json.dumps(findings, indent=4))
     return "Something i am doing...."
 
 
