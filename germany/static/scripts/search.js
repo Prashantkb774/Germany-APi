@@ -39,33 +39,38 @@ let webLink;
 input.onkeyup = (e)=>{
     let userData = e.target.value; //user enetered data
     let emptyArray = [];
-    if(userData){
-        emptyArray = suggestions.filter((data)=>{
-            //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
-            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-        });
-        emptyArray = emptyArray.map((data)=>{
-            // passing return data inside li tag
-            return data = '<li>'+ data +'</li>';
-        });
-        searchInput.classList.add("active"); //show autocomplete box
-        showSuggestions(emptyArray);
-        let allList = resultBox.querySelectorAll("li");
-        for (let i = 0; i < allList.length; i++) {
-            //adding onclick attribute in all li tag
-            allList[i].setAttribute("onclick", "select(this)");
-        }
-    }else{
+    if(userData && userData.length > 2) {
+        url = 'http://127.0.0.1:5000/search/' + userData;
+        fetch(url, {method: 'GET'})
+          .then(Result => Result.json())
+          .then(data => {
+            emptyArray = data.items.map((item) => {
+                // passing return data inside li tag
+                return item = '<li>'+ item.key +' - ' + item.system + '</li>';
+            });
+            searchInput.classList.add("active"); //show autocomplete box
+            showSuggestions(emptyArray);
+            let allList = resultBox.querySelectorAll("li");
+            for (let i = 0; i < allList.length; i++) {
+                //adding onclick attribute in all li tag
+                allList[i].setAttribute("onclick", "select(this)");
+            }
+        }).catch(err => { console.log(err); });
+    } else {
         searchInput.classList.remove("active"); //hide autocomplete box
     }
 }
 
-function showSuggestions(list){
+function select(selected) {
+    console.log(selected);
+}
+
+function showSuggestions(list) {
     let listData;
-    if(!list.length){
+    if(!list.length) {
         userValue = inputBox.value;
         listData = '<li>'+ userValue +'</li>';
-    }else{
+    } else {
         listData = list.join('');
     }
     resultBox.innerHTML = listData;

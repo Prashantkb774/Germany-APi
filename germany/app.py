@@ -1,7 +1,7 @@
+import copy
 import os
 import json
 import secrets
-import uuid
 
 import flask
 
@@ -25,29 +25,57 @@ def map_json():
         print(f'Parsing {cfile}')
         with open(f'{path}/json/{cfile}', 'r') as f:
             data = json.loads(f.read())
-        parse_json(data, relations, findings)
+        system = cfile.rstrip('.json').upper()
+        parse_json(data, relations, findings, system)
 
     if findings:
         print('Wrote the findings to the file.')
-        with open(f'{path}/output/{uuid.uuid4()}.json', 'w') as f:
+        with open(f'{path}/output/parsed_data.json', 'w') as f:
             f.write(json.dumps(findings, indent=4))
     return "Something i am doing...."
 
 
-def parse_json(data, relations, findings):
+def parse_json(data, relations, findings, system):
     if isinstance(data, dict):
         for key, value in data.items():
             if key in relations:
                 if value in findings:
                     findings[value].update(data)
+                    if system not in findings[value]['system']:
+                        findings[value]['system'].append(system)
                 else:
-                    findings[value] = data
+                    findings[value] = copy.deepcopy(data)
+                    findings[value].setdefault('system', [system])
             elif value and isinstance(value, (list, dict)):
-                parse_json(value, relations, findings)
+                parse_json(value, relations, findings, system)
     elif isinstance(data, list):
         for li in data:
             if li:
-                parse_json(li, relations, findings)
+                parse_json(li, relations, findings, system)
+
+
+@app.route('/search/<query>', methods=['GET'])
+def search(query):
+    path = f'{os.getcwd()}/germany/data'
+    with open(f'{path}/output/parsed_data.json', 'r') as f:
+        data = json.loads(f.read())
+
+    result = []
+    for key, val in data.items():
+        if query in key:
+            result.append({
+                'key': key,
+                'system': ', '.join(val['system']),
+                'version_number': val.get('versionNumber'),
+                'status_level': val.get('statusLevel'),
+                'access_status': val.get('accessStatus'),
+                'process_control': val.get('processControl')
+            })
+            if len(result) > 10:
+                break
+    return {
+        'items': result
+    }
 
 
 @app.route('/status')
@@ -56,7 +84,7 @@ def status():
 
 
 @app.route('/')
-def search():
+def search_page():
     return flask.render_template('search.html')
 
 
