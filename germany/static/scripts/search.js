@@ -1,59 +1,39 @@
-let suggestions = [
-    "Channel",
-    "CodingLab",
-    "CodingNepal",
-    "YouTube",
-    "YouTuber",
-    "YouTube Channel",
-    "Blogger",
-    "Bollywood",
-    "Vlogger",
-    "Vechiles",
-    "Facebook",
-    "Freelancer",
-    "Facebook Page",
-    "Designer",
-    "Developer",
-    "Web Designer",
-    "Web Developer",
-    "Login Form in HTML & CSS",
-    "How to learn HTML & CSS",
-    "How to learn JavaScript",
-    "How to became Freelancer",
-    "How to became Web Designer",
-    "How to start Gaming Channel",
-    "How to start YouTube Channel",
-    "What does HTML stands for?",
-    "What does CSS stands for?",
-];
-
 // getting all required elements
 const searchInput = document.querySelector(".searchInput");
 const input = searchInput.querySelector("input");
 const resultBox = searchInput.querySelector(".resultBox");
 const icon = searchInput.querySelector(".icon");
+const searchResult = document.querySelector(".search-result");
 let linkTag = searchInput.querySelector("a");
 let webLink;
+
+searchResult.classList.add("table-hide");
 
 // if user press any key and release
 input.onkeyup = (e)=>{
     let userData = e.target.value; //user enetered data
     let emptyArray = [];
     if(userData && userData.length > 2) {
-        url = 'http://127.0.0.1:5000/search/' + userData;
-        fetch(url, {method: 'GET'})
+        fetch(window.location.href + '/search/' + userData, {method: 'GET'})
           .then(Result => Result.json())
           .then(data => {
+            // Empty the search box.
+            resultBox.innerHTML = '';
+
+            // Collect all the Items for the Searched Term.
             emptyArray = data.items.map((item) => {
                 // passing return data inside li tag
-                return item = '<li>'+ item.key +' - ' + item.system + '</li>';
+                return item = '<li key="' + item.key + '" system="' + item.system + '" version_number="' + item.version_number + '" data-access_status="' + item.access_status + '" status_level="' + item.status_level + '"  process_control="' + item.process_control + '" >'+ item.key +' - ' + item.system + '</li>';
             });
-            searchInput.classList.add("active"); //show autocomplete box
-            showSuggestions(emptyArray);
-            let allList = resultBox.querySelectorAll("li");
-            for (let i = 0; i < allList.length; i++) {
-                //adding onclick attribute in all li tag
-                allList[i].setAttribute("onclick", "select(this)");
+
+            if (emptyArray.length > 0) {
+                searchInput.classList.add("active"); //show autocomplete box
+                showSuggestions(emptyArray);
+                let allList = resultBox.querySelectorAll("li");
+                for (let i = 0; i < allList.length; i++) {
+                    //adding onclick attribute in all li tag
+                    allList[i].setAttribute("onclick", "select(this)");
+                }
             }
         }).catch(err => { console.log(err); });
     } else {
@@ -62,7 +42,26 @@ input.onkeyup = (e)=>{
 }
 
 function select(selected) {
-    console.log(selected);
+    searchInput.classList.remove("active"); //hide autocomplete box
+    searchResult.classList.remove("table-hide");
+
+    var tbody = document.querySelector("#search-table>tbody");
+    for (var i = 0; i < tbody.rows.length; i++) {
+        tbody.deleteRow(i);
+    }
+
+    var newRow = tbody.insertRow();
+    newRow.insertCell().append(selected.getAttribute('key'));
+    newRow.insertCell().append(selected.getAttribute('system').toUpperCase());
+
+    newRow.insertCell().append(
+      selected.getAttribute('version_number') === null ? 'NA': selected.getAttribute('version_number').toUpperCase());
+    newRow.insertCell().append(
+      selected.getAttribute('access_status') === null ? 'NA': selected.getAttribute('access_status').toUpperCase());
+    newRow.insertCell().append(
+      selected.getAttribute('status_level') === null ? 'NA': selected.getAttribute('status_level').toUpperCase());
+    newRow.insertCell().append(
+      selected.getAttribute('process_control') === null ? 'NA': selected.getAttribute('process_control').toUpperCase());
 }
 
 function showSuggestions(list) {
